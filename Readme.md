@@ -2,6 +2,13 @@
 
 Edunex is a modern Learning Management System (LMS) designed to streamline online education for students and educators. It provides robust features for authentication, course management, role-based access control, and secure payment integration.
 
+## Project Logo
+
+![Edunex Logo](./Preview.png)
+
+_Add your project logo above by replacing `path/to/your/logo.png` with the actual image path or URL._
+
+
 ## Priority Zero Features
 
 - **Authentication**: Secure login and registration for all users.
