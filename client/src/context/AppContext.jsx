@@ -11,7 +11,27 @@ export const AppContextProvider = (props) => {
   const [allCourses, setAllCourses] = useState([]);
   const [isEducator, setIsEducator] = useState(true);
   const [enrolledCourses, setEnrolledCourses] = useState([]);
+  const [isLoggedin, setisLoggedin] = useState(() => {
+    const savedLoggedin = localStorage.getItem("isLoggedin");
+    return savedLoggedin ? savedLoggedin : false;
+  });
 
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem("user");
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
+
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem("user", JSON.stringify(user));
+    } else {
+      localStorage.removeItem("user");
+    }
+  }, [user]);
+
+  useEffect(() => {
+    localStorage.setItem("isLoggedin", JSON.stringify(isLoggedin));
+  }, [isLoggedin]);
 
   // Fetch All Courses
   const fetchAllCourses = async () => {
@@ -81,16 +101,13 @@ export const AppContextProvider = (props) => {
   };
 
   // Fetch User Enrolled Courses
-  const fetchUserEnrolledCourses = async ()=>{
-    setEnrolledCourses(dummyCourses)
-  }
-
-
-
+  const fetchUserEnrolledCourses = async () => {
+    setEnrolledCourses(dummyCourses);
+  };
 
   useEffect(() => {
     fetchAllCourses();
-    fetchUserEnrolledCourses()
+    fetchUserEnrolledCourses();
   }, []);
 
   const value = {
@@ -104,15 +121,14 @@ export const AppContextProvider = (props) => {
     calculateChapterTime,
     calculateCoursesDuration,
     enrolledCourses,
-    fetchUserEnrolledCourses
+    fetchUserEnrolledCourses,
+    isLoggedin,
+    setisLoggedin,
+    user,
+    setUser
   };
 
   return (
     <AppContext.Provider value={value}>{props.children}</AppContext.Provider>
   );
 };
-
-
-
-
-

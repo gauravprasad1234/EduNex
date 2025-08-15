@@ -13,6 +13,8 @@ import MyCourses from './pages/educator/MyCourses'
 import StudentsEnrolled from './pages/educator/StudentsEnrolled'
 import Navbar from './components/student/Navbar'
 import 'quill/dist/quill.snow.css';
+import Register from './pages/Register'
+import Profile from './pages/Profile'
 
 
 const App = () => {
@@ -25,12 +27,15 @@ const App = () => {
 
       <Routes>
         <Route path='/' element={<Home />} />
+        <Route path='/register' element = {<Register />}/>
+        <Route path='/profile' element = {<Profile />}/>
         <Route path='/course-list' element={<CoursesList />} />
         <Route path='/course-list/:input' element={<CoursesList />} />
         <Route path='/course/:id' element={<CourseDetails />} />
         <Route path='/my-enrollments' element={<MyEnrollments />} />
         <Route path='/player/:courseId' element={<Player />} />
         <Route path='/loading/:path' element={<Loading />} />
+        
 
         {/* Nested Educator Routes */}
         <Route path='/educator' element={<Educator />}>
