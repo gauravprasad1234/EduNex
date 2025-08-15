@@ -17,14 +17,15 @@ const Navbar = () => {
   // const { openSignIn } = useClerk();
   // const { user } = useUser();
 
-  let {user,setUser} = useContext(AppContext)
+  let { user, setUser, isLoggedin } = useContext(AppContext);
 
   async function getLoggedinUser() {
     try {
       let user = await axios.get("http://localhost:5000/api/users/profile", {
         withCredentials: true,
       });
-      setUser(user.data)
+
+      setUser(user.data);
     } catch (error) {
       console.log(error?.response?.data?.message);
     }
@@ -46,30 +47,29 @@ const Navbar = () => {
       </div>
       <div className="hidden md:flex items-center gap-5 text-gray-500">
         <div className="flex items-center gap-5">
-          {user && (
+          {isLoggedin && (
             <>
               <button
                 onClick={() => {
                   navigate("/educator");
                 }}
               >
-                {
-                  user?.role !== "student" && "Educator Dashboard" 
-                }
+                {user?.role !== "student" && "Educator Dashboard"}
               </button>
-               <Link to="/my-enrollments"> My Enrollments</Link>
+              <Link to="/my-enrollments"> My Enrollments</Link>
             </>
           )}
         </div>
-        <Link to={'/profile'} className="w-[30px] h-[30px] rounded-full bg-orange-500 flex items-center justify-center">
-          {
-            user?.name?.split("")[0].toUpperCase()
-          }
-        </Link>
+        {isLoggedin && (
+          <Link
+            to={"/profile"}
+            className="w-[30px] h-[30px] rounded-full bg-orange-500 flex items-center justify-center"
+          >
+            {user?.name?.split("")[0].toUpperCase()}
+          </Link>
+        )}
 
-        {user ? (
-          <UserButton />
-        ) : (
+        {!isLoggedin && (
           <Link
             to={"/register"}
             className="bg-blue-600 text-white px-5 py-2 rounded-full"
@@ -92,7 +92,6 @@ const Navbar = () => {
                 {isEducator ? "Educator Dashboard" : "Become Educator"}{" "}
               </button>
               | <Link to="/my-enrollments"> My Enrollments</Link>
-              
             </>
           )}
           {/* {user ? (
@@ -103,7 +102,6 @@ const Navbar = () => {
             </button>
           
           )} */}
-        
         </div>
       </div>
     </div>

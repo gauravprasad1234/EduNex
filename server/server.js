@@ -12,6 +12,7 @@ const app = express();
 await conncetDB();
 
 import userRouter from "./routes/user.router.js";
+import courseRouter from './routes/course.router.js'
 
 // Middlewares
 app.use(
@@ -29,6 +30,8 @@ app.get("/", (req, res) => res.send("API Working"));
 app.post("/clerk", express.json(), clerkWebhooks);
 
 app.use("/api/users", userRouter);
+
+app.use("/api/courses",courseRouter)
 
 // Port
 const PORT = process.env.PORT || 5000;

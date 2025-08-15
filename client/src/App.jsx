@@ -15,6 +15,7 @@ import Navbar from './components/student/Navbar'
 import 'quill/dist/quill.snow.css';
 import Register from './pages/Register'
 import Profile from './pages/Profile'
+import Login from './pages/Login'
 
 
 const App = () => {
@@ -28,6 +29,7 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/register' element = {<Register />}/>
+        <Route path='/login' element = {<Login />}/>
         <Route path='/profile' element = {<Profile />}/>
         <Route path='/course-list' element={<CoursesList />} />
         <Route path='/course-list/:input' element={<CoursesList />} />

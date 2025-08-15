@@ -67,3 +67,39 @@ export const changeRole = async function (req, res) {
     });
   }
 };
+
+export const loginUser = async function (req, res) {
+  try {
+    let { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ message: "All Fields are required" });
+    }
+    let user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "Not Registered" });
+    }
+    let isMatch = bcrypt.compare(password, user.password);
+    if (isMatch) {
+      let token = jwt.sign({ email, name: user.name }, process.env.JWT_KEY);
+      res.cookie("token", token);
+      return res.status(200).json({ message: "Login Success" });
+    } else {
+      return res.status(401).json({ message: "Invalid Password" });
+    }
+  } catch (error) {
+    return res.status(500).json({
+      message: error instanceof Error ? error.message : "Error logging in",
+    });
+  }
+};
+
+export const logoutUser = function (req, res) {
+  try {
+    res.clearCookie("token");
+    return res.status(200).json({ message: "Logout Success" });
+  } catch (error) {
+    return res.status(500).json({
+      message: error instanceof Error ? error.message : "Error logging out",
+    });
+  }
+};

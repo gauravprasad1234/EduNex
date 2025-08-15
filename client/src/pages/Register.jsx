@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 
 import axios from 'axios'
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AppContext } from "../context/AppContext";
 
@@ -66,6 +66,8 @@ const Register = () => {
         >
           Create
         </button>
+
+        <Link className="block" to={'/login'}>Login</Link>
       </form>
     </div>
   );

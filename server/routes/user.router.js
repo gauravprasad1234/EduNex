@@ -1,13 +1,23 @@
-import express from 'express'
-import { changeRole, getUser, registerUser } from '../controllers/user.controller.js'
-import isLoggedin from '../middleware/isLoggedin.js'
+import express from "express";
+import {
+  changeRole,
+  getUser,
+  loginUser,
+  logoutUser,
+  registerUser,
+} from "../controllers/user.controller.js";
+import isLoggedin from "../middleware/isLoggedin.js";
 
-const router = express.Router()
+const router = express.Router();
 
-router.post("/register",registerUser)
+router.post("/register", registerUser);
 
-router.get("/profile",isLoggedin,getUser)
+router.post("/login",loginUser)
 
-router.put("/update-role",isLoggedin,changeRole)
+router.get("/logout", logoutUser);
 
-export default router
+router.get("/profile", isLoggedin, getUser);
+
+router.put("/update-role", isLoggedin, changeRole);
+
+export default router;

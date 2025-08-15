@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
-  let { user } = useContext(AppContext);
+  let { user,setisLoggedin } = useContext(AppContext);
   const [role, setRole] = React.useState(user?.role || "");
 
   const navigate = useNavigate();
@@ -24,10 +24,22 @@ const Profile = () => {
     }
   }
 
+  async function handleLogout() {
+    try {
+        let res = await axios.get("http://localhost:5000/api/users/logout",{withCredentials: true})
+        console.log(res)
+        setisLoggedin(false)
+        navigate("/")
+    } catch (error) {
+        toast.error(error?.response?.data?.message)
+    }
+  }
+
   return (
     <div className="p-10">
       <h1 className="text-2xl font-semibold mb-4">Hello, {user?.name}</h1>
       <h2>Role</h2>
+      <span onClick={handleLogout} className="absolute right-5 top-32 text-red-500 cursor-pointer">Logout</span>
       <div className="flex gap-4 mt-2">
         <label>
           <input
