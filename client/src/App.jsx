@@ -16,6 +16,7 @@ import 'quill/dist/quill.snow.css';
 import Register from './pages/Register'
 import Profile from './pages/Profile'
 import Login from './pages/Login'
+import CourseEnroll from './pages/CourseEnroll'
 
 
 const App = () => {
@@ -38,7 +39,7 @@ const App = () => {
         <Route path='/player/:courseId' element={<Player />} />
         <Route path='/loading/:path' element={<Loading />} />
         
-
+        <Route path='/enroll-course/:id' element = {<CourseEnroll />}/>
         {/* Nested Educator Routes */}
         <Route path='/educator' element={<Educator />}>
           <Route index element={<Dashboard />} />

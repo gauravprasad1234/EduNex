@@ -5,10 +5,23 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
-  let { user,setisLoggedin } = useContext(AppContext);
+  let { user,setisLoggedin,setUser } = useContext(AppContext);
   const [role, setRole] = React.useState(user?.role || "");
 
   const navigate = useNavigate();
+
+  async function getLoggedinUser() {
+    try {
+      let user = await axios.get("http://localhost:5000/api/users/profile", {
+        withCredentials: true,
+      });
+
+      setUser(user.data);
+    } catch (error) {
+      console.log(error?.response?.data?.message);
+    }
+  }
+
 
   async function changeRole() {
     try {
@@ -17,6 +30,7 @@ const Profile = () => {
         { role },
         { withCredentials: true }
       );
+      getLoggedinUser()
       toast.success("Role Updated Successfully");
       navigate("/");
     } catch (error) {
@@ -27,7 +41,7 @@ const Profile = () => {
   async function handleLogout() {
     try {
         let res = await axios.get("http://localhost:5000/api/users/logout",{withCredentials: true})
-        console.log(res)
+        toast.success("Logout Successfull")
         setisLoggedin(false)
         navigate("/")
     } catch (error) {

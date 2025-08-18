@@ -33,7 +33,7 @@ const Navbar = () => {
 
   useEffect(() => {
     getLoggedinUser();
-  }, [user]);
+  }, []);
 
   return (
     <div
@@ -54,7 +54,7 @@ const Navbar = () => {
                   navigate("/educator");
                 }}
               >
-                {user?.role !== "student" && "Educator Dashboard"}
+                {user?.role === "educator" && "Educator Dashboard"}
               </button>
               <Link to="/my-enrollments"> My Enrollments</Link>
             </>
@@ -63,7 +63,7 @@ const Navbar = () => {
         {isLoggedin && (
           <Link
             to={"/profile"}
-            className="w-[30px] h-[30px] rounded-full bg-orange-500 flex items-center justify-center"
+            className="w-[30px] text-black h-[30px] rounded-full bg-orange-500 flex items-center justify-center"
           >
             {user?.name?.split("")[0].toUpperCase()}
           </Link>
@@ -74,7 +74,7 @@ const Navbar = () => {
             to={"/register"}
             className="bg-blue-600 text-white px-5 py-2 rounded-full"
           >
-            Create Accout
+            Create Account
           </Link>
         )}
       </div>

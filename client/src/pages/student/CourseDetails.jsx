@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "../../context/AppContext";
 import Loading from "../../components/student/Loading";
 import { assets } from "../../assets/assets";
 import humanizeDuration from "humanize-duration";
 import Footer from "../../components/student/Footer";
 import YouTube from "react-youtube";
+import axios from "axios";
 
 // const currentDir = new URL('.', import.meta.url).pathname;
 // console.log(currentDir);
@@ -18,6 +19,8 @@ const CourseDetails = () => {
   const [isAlreadyEnrolled, setIsAlreadyEnrolled] = useState(false);
   const [playerData, setplayerData] = useState(null);
 
+  const navigate = useNavigate()
+
   const {
     allCourses,
     calculateRating,
@@ -28,8 +31,8 @@ const CourseDetails = () => {
   } = useContext(AppContext);
 
   const fetchCourseData = async () => {
-    const findCourse = allCourses.find((course) => course._id === id);
-    setCourseData(findCourse);
+    let course = await axios.get(`http://localhost:5000/api/courses/one/${id}`,{withCredentials: true})
+    setCourseData(course.data)
   };
 
   useEffect(() => {
@@ -43,6 +46,10 @@ const CourseDetails = () => {
     }));
   };
 
+  async function handleCourseEnrollment() {
+    navigate(`/enroll-course/${id}`)
+  }
+
   return courseData ? (
     <>
       <div className="flex md:flex-row flex-col flex-col-reverse gap-10 relative items-start justify-between md:px-36 px-8 md:pt-30 pt-20 text-left">
@@ -53,12 +60,12 @@ const CourseDetails = () => {
         <div className="max-w-xl z-10 text-gray-500">
           {/* Title and Short Description */}
           <h1 className="md:text-course-deatails-heading-large text-course-deatails-heading-small font-semibold text-gray-800">
-            {courseData.courseTitle}
+            {courseData?.title}
           </h1>
           <p
             className="pt-4 md:text-base text-sm"
             dangerouslySetInnerHTML={{
-              __html: courseData.courseDescription.slice(0, 200),
+              __html: courseData?.description,
             }}
           ></p>
 
@@ -84,8 +91,8 @@ const CourseDetails = () => {
               {courseData.courseRatings.length > 1 ? "ratings" : "rating"}
             </p>
             <p>
-              {courseData.enrolledStudents.length}{" "}
-              {courseData.enrolledStudents.length > 1 ? "students" : "student"}
+              {courseData?.studentsEnrolled?.length}{" "}
+              {courseData?.studentsEnrolled?.length > 1 ? "students" : "student"}
             </p>
           </div>
 
@@ -179,7 +186,7 @@ const CourseDetails = () => {
             </h3>
             <p
               className="pt-3 rich-text"
-              dangerouslySetInnerHTML={{ __html: courseData.courseDescription }}
+              dangerouslySetInnerHTML={{ __html: courseData?.description }}
             ></p>
           </div>
         </div>
@@ -197,7 +204,7 @@ const CourseDetails = () => {
               iframeClassName="w-full aspect-video"
             />
           ) : (
-            <img src={courseData.courseThumbnail} alt="" />
+            <img src={courseData?.thumbnail} alt="" />
           )}
           <div className="p-5">
             <div className="flex items-center gap-2">
@@ -214,11 +221,7 @@ const CourseDetails = () => {
 
             <div className="flex gap-3 items-center pt-2">
               <p className="text-gray-800 md:text-4xl text-2xl font-semibold">
-                {currency}
-                {(
-                  courseData.coursePrice -
-                  (courseData.discount * courseData.coursePrice) / 100
-                ).toFixed(2)}
+                ₹ {courseData?.price}
               </p>
               <p className="md:text-lg text-gray-500 line-through">
                 {currency}
@@ -250,8 +253,8 @@ const CourseDetails = () => {
               </div>
             </div>
 
-            <button className="md:mt-6 mt-4 w-full py-3 rounded bg-blue-600 text-white font-medium">
-              {isAlreadyEnrolled ? "Already Enrolled" : "Enroll Now"}
+            <button onClick={handleCourseEnrollment} className="md:mt-6 mt-4 w-full py-3 rounded bg-blue-600 text-white font-medium">
+              Enroll Now
             </button>
 
             <div className="pt-6">

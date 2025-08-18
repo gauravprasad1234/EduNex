@@ -10,19 +10,16 @@ import { ToastContainer } from "react-toastify";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
-if (!PUBLISHABLE_KEY) {
-  throw new Error('Missing Publishable Key')
-}
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-      <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl='/'>
+      
         <AppContextProvider>
           <App />
           <ToastContainer />
         </AppContextProvider>
-      </ClerkProvider>
+    
     </BrowserRouter>
   </StrictMode>
 )

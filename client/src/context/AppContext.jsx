@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { dummyCourses } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios'
 
 export const AppContext = createContext();
 
@@ -8,7 +9,14 @@ export const AppContextProvider = (props) => {
   const currency = import.meta.env.VITE_CURRENCY;
   const navigate = useNavigate();
 
-  const [allCourses, setAllCourses] = useState([]);
+  const [allCourses, setAllCourses] = useState(() => {
+    const savedCourses = localStorage.getItem("allCourses");
+    return savedCourses ? JSON.parse(savedCourses) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("allCourses", JSON.stringify(allCourses));
+  }, [allCourses]);
   const [isEducator, setIsEducator] = useState(true);
   const [enrolledCourses, setEnrolledCourses] = useState([]);
   const [isLoggedin, setisLoggedin] = useState(() => {
@@ -34,9 +42,9 @@ export const AppContextProvider = (props) => {
   }, [isLoggedin]);
 
   // Fetch All Courses
-  const fetchAllCourses = async () => {
-    setAllCourses(dummyCourses);
-  };
+  // const fetchAllCourses = async () => {
+  //   setAllCourses(dummyCourses);
+  // };
 
   // Calculate average rating of course
   const calculateRating = (course) => {
@@ -105,10 +113,23 @@ export const AppContextProvider = (props) => {
     setEnrolledCourses(dummyCourses);
   };
 
+  // useEffect(() => {
+  //   fetchAllCourses();
+  //   fetchUserEnrolledCourses();
+  // }, []);
+
+  async function fetchAllCourses() {
+    try {
+      let allCourses = await axios.get("http://localhost:5000/api/courses/all",{withCredentials: true})
+      setAllCourses(allCourses.data)
+    } catch (error) {
+      console.log(error?.response?.data?.message)
+    }
+  }
+
   useEffect(() => {
-    fetchAllCourses();
-    fetchUserEnrolledCourses();
-  }, []);
+    fetchAllCourses()
+  },[])
 
   const value = {
     currency,

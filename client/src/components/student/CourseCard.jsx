@@ -10,16 +10,16 @@ const CourseCard = ({ course }) => {
 
   return (
     <Link
-      to={"/course/" + course._id}
+      to={"/course/" + course?._id}
       onClick={() => scrollTo(0, 0)}
       className="border border-gray-500/30 pb-6 overflow-hidden rounded-lg"
     >
       <img className="w-full" src={course.courseThumbnail} alt="" />
       <div className="p-3 text-left">
-        <h3 className="text-base font-semibold">{course.courseTitle}</h3>
+        <h3 className="text-base font-semibold">{course?.title}</h3>
 
         {/* Instructor Name */}
-        <p className="text-sm text-gray-500">By {course.educator?.name}</p>
+        <p className="text-sm text-gray-500">By {course?.educatorId?.name}</p>
 
         <div className="flex items-center space-x-2 mt-1">
           <p>{calculateRating(course)}</p>
@@ -37,15 +37,11 @@ const CourseCard = ({ course }) => {
               />
             ))}
           </div>
-          <p className="text-gray-500">{course.courseRatings.length}</p>
+          {/* <p className="text-gray-500">{course?.courseRatings.length}</p> */}
         </div>
 
         <p className="text-base font-semibold text-gray-800 mt-2">
-          {currency}
-          {(
-            course.coursePrice -
-            (course.discount * course.coursePrice) / 100
-          ).toFixed(2)}
+          ₹ {course?.price}
         </p>
       </div>
     </Link>

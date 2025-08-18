@@ -26,12 +26,23 @@ const courseSchema = new mongoose.Schema(
     thumbnail: {
       type: String,
     },
+    courseRatings: [
+      {
+        rating: Number
+      }
+    ],
     studentsEnrolled: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
       },
     ],
+    courseContent: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "content"
+      }
+    ]
   },
   { timestamps: true }
 );
