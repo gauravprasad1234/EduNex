@@ -9,7 +9,7 @@ import cookieParser from "cookie-parser";
 const app = express();
 
 // connect to database
-await conncetDB();
+conncetDB();
 
 import userRouter from "./routes/user.router.js";
 import courseRouter from './routes/course.router.js'

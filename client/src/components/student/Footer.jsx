@@ -26,14 +26,12 @@ const Footer = () => {
               <a href="#">Home</a>
             </li>
             <li>
-              <a href="#">About Us</a>
+              <a href="#testimon">Testimonials</a>
             </li>
             <li>
-              <a href="#">Contact Us</a>
+              <a href="#cta">Call To Action</a>
             </li>
-            <li>
-              <a href="#">Privacy Policy </a>
-            </li>
+            
           </ul>
         </div>
         <div className="hidden md:flex flex-col items-start w-full">

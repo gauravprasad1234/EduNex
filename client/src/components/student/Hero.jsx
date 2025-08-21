@@ -26,7 +26,7 @@ const Hero = () => {
       <p className='md:hidden text-gray-500 max-w-sm mx-auto'>
         We bring together world-class instructors to help you achieve your professional goals.  </p>
     
-      <SearchBar/>
+      {/* <SearchBar/> */}
 
     </div>
   )
