@@ -13,6 +13,7 @@ await conncetDB();
 
 import userRouter from "./routes/user.router.js";
 import courseRouter from './routes/course.router.js'
+import orderRouter from './routes/order.router.js'
 
 // Middlewares
 app.use(
@@ -32,6 +33,8 @@ app.post("/clerk", express.json(), clerkWebhooks);
 app.use("/api/users", userRouter);
 
 app.use("/api/courses",courseRouter)
+
+app.use("/api/orders",orderRouter)
 
 // Port
 const PORT = process.env.PORT || 7000;

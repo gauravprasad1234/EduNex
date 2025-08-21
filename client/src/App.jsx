@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import Home from './pages/student/Home'
 import CoursesList from './pages/student/CoursesList'
@@ -22,6 +22,13 @@ import CourseEnroll from './pages/CourseEnroll'
 const App = () => {
   const location = useLocation();
   const isEducatorRoute = location.pathname.startsWith('/educator');
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+    document.body.appendChild(script);
+  }, []);
 
   return (
     <div className='text-default min-h-screen bg-white'>
