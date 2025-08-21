@@ -3,6 +3,8 @@ import React, { useContext } from "react";
 import { assets } from "../../assets/assets";
 import { AppContext } from "../../context/AppContext";
 import { Link } from "react-router-dom";
+import generateImageUrl from "../../utils/generateImageUrl";
+// import {  } from "../../assets/course";
 
 // Component starts
 const CourseCard = ({ course }) => {
@@ -14,7 +16,10 @@ const CourseCard = ({ course }) => {
       onClick={() => scrollTo(0, 0)}
       className="border border-gray-500/30 pb-6 overflow-hidden rounded-lg"
     >
-      <img className="w-full" src={course.courseThumbnail} alt="" />
+      <div className="w-full h-[200px] border-2 border-zinc-900">
+        <img className="w-full h-full object-cover" src={`${generateImageUrl()}`} alt="" />
+      </div>
+      {/* <img className="w-full" src={generateImageUrl()} alt="" /> */}
       <div className="p-3 text-left">
         <h3 className="text-base font-semibold">{course?.title}</h3>
 
