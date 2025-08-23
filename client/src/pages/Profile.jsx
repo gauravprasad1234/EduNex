@@ -56,8 +56,8 @@ const Profile = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: "#ddfbfe" }}>
-      <div className="bg-white w-full max-w-md p-8 rounded-2xl shadow-lg relative">
+    <div className="min-h-screen flex items-center justify-center bg-white">
+      <div className="bg-white w-full max-w-md p-8 rounded-2xl shadow-lg relative border border-gray-200">
         {/* Logout Button */}
         <button
           onClick={handleLogout}

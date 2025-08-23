@@ -1,12 +1,13 @@
-import React, { useContext, useState } from 'react';
-import { AppContext } from '../../context/AppContext';
-import Footer from '../../components/student/Footer';
-import { Line } from 'rc-progress';
+import React, { useContext, useState } from "react";
+import { AppContext } from "../../context/AppContext";
+import Footer from "../../components/student/Footer";
+import { Line } from "rc-progress";
 
 const MyEnrollments = () => {
-  const { enrolledCourses, calculateCoursesDuration, navigate } = useContext(AppContext);
+  const { enrolledCourses, calculateCoursesDuration, navigate } =
+    useContext(AppContext);
 
-  const [progressArray, setProgressArray] = useState([
+  const [progressArray] = useState([
     { lectureCompleted: 4, totalLectures: 4 },
     { lectureCompleted: 1, totalLectures: 4 },
     { lectureCompleted: 3, totalLectures: 6 },
@@ -24,59 +25,91 @@ const MyEnrollments = () => {
   ]);
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-white">
       {/* Content Section */}
-      <div className="flex-grow md:px-36 px-8 pt-10">
-        <h1 className="text-2xl font-semibold">My Enrollments</h1>
+      <div className="flex-grow md:px-36 px-4 sm:px-8 pt-10">
+        <h1 className="text-2xl font-semibold mb-6">My Enrollments</h1>
 
-        <table className="md:table-auto table-fixed w-full overflow-hidden border mt-10">
-          <thead className="text-gray-900 border-b border-gray-500/20 text-sm text-left max-sm:hidden">
-            <tr>
-              <th className="px-4 py-3 font-semibold truncate">Course</th>
-              <th className="px-4 py-3 font-semibold truncate">Duration</th>
-              <th className="px-4 py-3 font-semibold truncate">Completed</th>
-              <th className="px-4 py-3 font-semibold truncate">Status</th>
-            </tr>
-          </thead>
+        <div className="overflow-x-auto rounded-lg shadow border">
+          <table className="table-auto w-full text-sm text-left border-collapse">
+            {/* ✅ Headings always visible */}
+            <thead className="text-gray-900 border-b border-gray-300 bg-gray-100 sticky top-0 z-10">
+              <tr>
+                <th className="px-4 py-3 font-semibold">Course</th>
+                <th className="px-4 py-3 font-semibold">Duration</th>
+                <th className="px-4 py-3 font-semibold">Completed</th>
+                <th className="px-4 py-3 font-semibold">Status</th>
+              </tr>
+            </thead>
 
-          <tbody className="text-gray-700">
-            {enrolledCourses.map((course, index) => {
-              const progress = progressArray[index];
-              const percent = progress ? (progress.lectureCompleted * 100) / progress.totalLectures : 0;
+            <tbody className="text-gray-700">
+              {enrolledCourses.map((course, index) => {
+                const progress = progressArray[index];
+                const percent = progress
+                  ? (progress.lectureCompleted * 100) / progress.totalLectures
+                  : 0;
 
-              return (
-                <tr key={index} className="border-b border-gray-500/20">
-                  <td className="md:px-4 pl-2 md:pl-4 py-3 flex items-center space-x-3">
-                    <img src={course.courseThumbnail} alt="" className="w-14 sm:w-24 md:w-28" />
-                    <div className="flex-1">
-                      <p className="mb-1 max-sm:text-sm">{course.courseTitle}</p>
-                      <Line strokeWidth={2} percent={percent} className="bg-gray-300 rounded-full" />
-                    </div>
-                  </td>
+                return (
+                  <tr
+                    key={index}
+                    className="border-b border-gray-200 hover:bg-gray-50 transition"
+                  >
+                    {/* Course */}
+                    <td className="px-4 py-3 flex items-center space-x-3">
+                      <img
+                        src={course.courseThumbnail}
+                        alt=""
+                        className="w-14 sm:w-20 md:w-28 rounded-md"
+                      />
+                      <div className="flex-1">
+                        <p className="mb-1 font-medium text-sm sm:text-base">
+                          {course.courseTitle}
+                        </p>
+                        <Line
+                          strokeWidth={2}
+                          percent={percent}
+                          strokeColor="#2563eb"
+                          className="bg-gray-200 rounded-full"
+                        />
+                      </div>
+                    </td>
 
-                  <td className="px-4 py-3 max-sm:hidden">
-                    {calculateCoursesDuration(course)}
-                  </td>
+                    {/* Duration */}
+                    <td className="px-4 py-3 whitespace-nowrap">
+                      {calculateCoursesDuration(course)}
+                    </td>
 
-                  <td className="px-4 py-3 max-sm:hidden">
-                    {progress && `${progress.lectureCompleted} / ${progress.totalLectures}`} <span>Lectures</span>
-                  </td>
+                    {/* Completed */}
+                    <td className="px-4 py-3 whitespace-nowrap">
+                      {progress &&
+                        `${progress.lectureCompleted} / ${progress.totalLectures}`}{" "}
+                      Lectures
+                    </td>
 
-                  <td className="px-4 py-3 max-sm:text-right">
-                    <button
-                      className="px-3 sm:px-5 py-1.5 sm:py-2 bg-blue-600 max-sm:text-xs text-white"
-                      onClick={() => navigate('/player/' + course._id)}
-                    >
-                      {progress && progress.lectureCompleted / progress.totalLectures === 1
-                        ? 'Completed'
-                        : 'On Going'}
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+                    {/* Status Button */}
+                    <td className="px-4 py-3">
+                      <button
+                        className={`px-4 py-1.5 rounded text-white text-sm font-medium ${
+                          progress &&
+                          progress.lectureCompleted / progress.totalLectures ===
+                            1
+                            ? "bg-green-600"
+                            : "bg-blue-600"
+                        }`}
+                        onClick={() => navigate("/player/" + course._id)}
+                      >
+                        {progress &&
+                        progress.lectureCompleted / progress.totalLectures === 1
+                          ? "Completed"
+                          : "On Going"}
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {/* ✅ Footer fixed at the bottom */}
