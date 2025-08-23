@@ -21,7 +21,9 @@ export const registerUser = async function (req, res) {
       password: hash,
     });
     let token = jwt.sign({ name, email }, process.env.JWT_KEY);
-    res.cookie("token", token);
+    res.cookie("token", token,{
+      secure: true
+    });
     return res.status(201).json({ message: "Registration Successfull" });
   } catch (error) {
     return res.status(500).json({

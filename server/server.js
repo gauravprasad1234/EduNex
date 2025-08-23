@@ -18,7 +18,7 @@ import orderRouter from './routes/order.router.js'
 // Middlewares
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://edu-nex-steel.vercel.app",
     credentials: true,
   })
 );
