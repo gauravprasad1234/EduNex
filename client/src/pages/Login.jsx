@@ -22,7 +22,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:5000/api/users/login", login, {
+      await axios.post("https://edunex-5ms8.onrender.com/api/users/login", login, {
         withCredentials: true,
       });
       toast.success("Login Successful 🎉");

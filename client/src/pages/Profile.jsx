@@ -12,7 +12,7 @@ const Profile = () => {
 
   async function getLoggedinUser() {
     try {
-      let res = await axios.get("http://localhost:5000/api/users/profile", {
+      let res = await axios.get("https://edunex-5ms8.onrender.com/api/users/profile", {
         withCredentials: true,
       });
       setUser(res.data);
@@ -24,7 +24,7 @@ const Profile = () => {
   async function changeRole() {
     try {
       await axios.put(
-        "http://localhost:5000/api/users/update-role",
+        "https://edunex-5ms8.onrender.com/api/users/update-role",
         { role },
         { withCredentials: true }
       );
@@ -38,7 +38,7 @@ const Profile = () => {
 
   async function handleLogout() {
     try {
-      await axios.get("http://localhost:5000/api/users/logout", {
+      await axios.get("https://edunex-5ms8.onrender.com/api/users/logout", {
         withCredentials: true,
       });
       toast.success("Logout Successful ✅");

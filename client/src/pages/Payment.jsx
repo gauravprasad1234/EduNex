@@ -10,7 +10,7 @@ const Payment = ({ course, amount }) => {
   async function handlePayment() {
     try {
       let orderRes = await axios.post(
-        "http://localhost:5000/api/orders/create-order",
+        "https://edunex-5ms8.onrender.com/api/orders/create-order",
         { amount },
         { withCredentials: true }
       );
@@ -27,7 +27,7 @@ const Payment = ({ course, amount }) => {
           newResponse.instructor = course?.educatorId;
           try {
             let verifyRes = await axios.post(
-              `http://localhost:5000/api/orders/verify-payment/${course?._id}`,
+              `https://edunex-5ms8.onrender.com/api/orders/verify-payment/${course?._id}`,
               newResponse,
               { withCredentials: true }
             );

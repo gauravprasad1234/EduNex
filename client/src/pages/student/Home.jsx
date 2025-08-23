@@ -11,7 +11,7 @@ const Home = () => {
   let {setAllCourses} = useContext(AppContext)
   async function fetchAllCourses() {
       try {
-        let allCourses = await axios.get("http://localhost:5000/api/courses/all",{withCredentials: true})
+        let allCourses = await axios.get("https://edunex-5ms8.onrender.com/api/courses/all",{withCredentials: true})
         setAllCourses(allCourses.data)
       } catch (error) {
         console.log(error?.response?.data?.message)

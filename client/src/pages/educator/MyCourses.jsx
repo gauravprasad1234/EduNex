@@ -10,7 +10,7 @@ const MyCourses = () => {
 
   const fetchEducatorCourses = async () => {
     try {
-      let courses = await axios.get("http://localhost:5000/api/courses/read", {
+      let courses = await axios.get("https://edunex-5ms8.onrender.com/api/courses/read", {
         withCredentials: true,
       });
       setCourses(courses.data)

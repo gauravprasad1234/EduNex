@@ -31,7 +31,7 @@ const CourseDetails = () => {
   } = useContext(AppContext);
 
   const fetchCourseData = async () => {
-    let course = await axios.get(`http://localhost:5000/api/courses/one/${id}`,{withCredentials: true})
+    let course = await axios.get(`https://edunex-5ms8.onrender.com/api/courses/one/${id}`,{withCredentials: true})
     setCourseData(course.data)
   };
 

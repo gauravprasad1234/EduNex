@@ -102,7 +102,7 @@ const AddCourse = () => {
 
     try {
       await axios.post(
-        "http://localhost:5000/api/courses/create",
+        "https://edunex-5ms8.onrender.com/api/courses/create",
         coursedetails,
         { withCredentials: true }
       );
