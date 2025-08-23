@@ -21,7 +21,7 @@ const Navbar = () => {
 
   async function getLoggedinUser() {
     try {
-      let user = await axios.get("http://localhost:5000/api/users/profile", {
+      let user = await axios.get("https://edunex-5ms8.onrender.com/api/users/profile", {
         withCredentials: true,
       });
 
