@@ -22,7 +22,9 @@ export const registerUser = async function (req, res) {
     });
     let token = jwt.sign({ name, email }, process.env.JWT_KEY);
     res.cookie("token", token,{
-      secure: true
+      sameSite: "None",
+      secure: true,
+      httpOnly: true
     });
     return res.status(201).json({ message: "Registration Successfull" });
   } catch (error) {
