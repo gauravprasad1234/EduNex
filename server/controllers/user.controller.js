@@ -85,7 +85,11 @@ export const loginUser = async function (req, res) {
     let isMatch = bcrypt.compare(password, user.password);
     if (isMatch) {
       let token = jwt.sign({ email, name: user.name }, process.env.JWT_KEY);
-      res.cookie("token", token);
+      res.cookie("token", token,{
+      sameSite: "None",
+      secure: true,
+      httpOnly: true
+    });
       return res.status(200).json({ message: "Login Success" });
     } else {
       return res.status(401).json({ message: "Invalid Password" });
