@@ -6,7 +6,7 @@ import TestimonialsSection from '../../components/student/TestimonialsSection'
 import CallToAction from '../../components/student/CallToAction'
 import Footer from '../../components/student/Footer'
 import { AppContext } from '../../context/AppContext'
-import Navbar from '../../components/educator/Navbar
+import Navbar from '../../components/educator/Navbar'
 
 const Home = () => {
   let {setAllCourses} = useContext(AppContext)
