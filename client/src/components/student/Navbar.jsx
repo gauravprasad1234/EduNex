@@ -36,11 +36,12 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div
-      className={`flex items-center justify-between px-4 sm:px-10 md:px-14 lg:px-36 border-b border-gray-500 py-4 ${
-        isCourseListPage ? "bg-white" : "bg-cyan-100/70"
-      }`}
-    >
+   <div
+  className={`w-full flex items-center justify-between px-4 sm:px-10 md:px-14 border-b border-gray-300 py-4 ${
+    isCourseListPage ? "bg-white" : "bg-cyan-100/70"
+  }`}
+>
+
       <div className="flex gap-2 items-center">
         <img className="w-9 h-9" src={logo} alt="" />
         <h1 className="text-2xl font-bold">EduNex</h1>
