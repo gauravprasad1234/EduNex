@@ -21,7 +21,7 @@ const Home = () => {
     useEffect(() => {fetchAllCourses()},[])
   return (
     <div className='flex flex-col items-center space-y-7 text-center'>
-            {!isEducatorRoute && <Navbar />}
+      <Navbar />
 
       <Hero/>
       <Companies/>
