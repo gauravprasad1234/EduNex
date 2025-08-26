@@ -20,7 +20,7 @@ export const registerUser = async function (req, res) {
       email,
       password: hash,
     });
-    let token = jwt.sign({ name, email }, process.env.JWT_KEY);
+    let token = jwt.sign({ name, email }, process.env.JWT_KEY,{ expiresIn: "10y" });
     res.cookie("token", token,{
       sameSite: "None",
       secure: true,
@@ -84,7 +84,7 @@ export const loginUser = async function (req, res) {
     }
     let isMatch = bcrypt.compare(password, user.password);
     if (isMatch) {
-      let token = jwt.sign({ email, name: user.name }, process.env.JWT_KEY);
+      let token = jwt.sign({ email, name: user.name }, process.env.JWT_KEY,{ expiresIn: "10y" });
       res.cookie("token", token,{
       sameSite: "None",
       secure: true,
