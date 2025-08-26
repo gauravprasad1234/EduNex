@@ -32,7 +32,6 @@ const App = () => {
 
   return (
     <div className='text-default min-h-screen bg-white'>
-      {!isEducatorRoute && <Navbar />}
 
       <Routes>
         <Route path='/' element={<Home />} />
