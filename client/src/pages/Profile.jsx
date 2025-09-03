@@ -43,6 +43,7 @@ const Profile = () => {
       });
       toast.success("Logout Successful ✅");
       setisLoggedin(false);
+      setUser(null)
       navigate("/");
     } catch (error) {
       toast.error(error?.response?.data?.message);
