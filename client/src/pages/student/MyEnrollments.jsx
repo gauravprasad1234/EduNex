@@ -40,14 +40,14 @@ const MyEnrollments = () => {
               <thead className="text-gray-900 border-b border-gray-300 bg-gray-100 sticky top-0 z-10">
                 <tr>
                   <th className="px-4 py-3 font-semibold">Course</th>
-                  <th className="px-4 py-3 font-semibold">Duration</th>
+                  {/* <th className="px-4 py-3 font-semibold">Duration</th> */}
                   <th className="px-4 py-3 font-semibold">Completed</th>
                   <th className="px-4 py-3 font-semibold">Status</th>
                 </tr>
               </thead>
 
               <tbody className="text-gray-700">
-                {enrolledCourses.map((course, index) => {
+                {user?.enrolledCourses.map((course, index) => {
                   const progress = progressArray[index];
                   const percent = progress
                     ? (progress.lectureCompleted * 100) / progress.totalLectures
@@ -61,13 +61,13 @@ const MyEnrollments = () => {
                       {/* Course */}
                       <td className="px-4 py-3 flex items-center space-x-3">
                         <img
-                          src={course.courseThumbnail}
+                          src={course?.thumbnail}
                           alt=""
                           className="w-14 sm:w-20 md:w-28 rounded-md"
                         />
                         <div className="flex-1">
                           <p className="mb-1 font-medium text-sm sm:text-base">
-                            {course.courseTitle}
+                            {course?.title}
                           </p>
                           <Line
                             strokeWidth={2}
@@ -79,9 +79,9 @@ const MyEnrollments = () => {
                       </td>
 
                       {/* Duration */}
-                      <td className="px-4 py-3 whitespace-nowrap">
+                      {/* <td className="px-4 py-3 whitespace-nowrap">
                         {calculateCoursesDuration(course)}
-                      </td>
+                      </td> */}
 
                       {/* Completed */}
                       <td className="px-4 py-3 whitespace-nowrap">
