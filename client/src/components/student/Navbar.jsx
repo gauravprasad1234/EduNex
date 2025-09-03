@@ -66,19 +66,19 @@ const Navbar = () => {
           )}
         </div>
 
-        {!isLoggedin ? (
-          <Link
-            to={"/register"}
-            className="bg-blue-600 text-white px-5 py-2 rounded-full"
-          >
-            Create Account
-          </Link>
-        ) : (
+        {isLoggedin ? (
           <Link
             to={"/profile"}
             className="w-[30px] text-black h-[30px] rounded-full bg-orange-500 flex items-center justify-center"
           >
             {user?.name?.split("")[0].toUpperCase()}
+          </Link>
+        ) : (
+          <Link
+            to={"/register"}
+            className="bg-blue-600 text-white px-5 py-2 rounded-full"
+          >
+            Create Account
           </Link>
         )}
       </div>
