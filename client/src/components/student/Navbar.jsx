@@ -37,7 +37,7 @@ const Navbar = () => {
 
   return (
    <div
-  className={`w-full flex items-center justify-between px-4 sm:px-10 md:px-14 border-b border-gray-300 py-4 ${
+  className={`w-full flex items-center h-[80px] justify-between px-4 sm:px-10 md:px-14 border-b border-gray-300 py-4 ${
     isCourseListPage ? "bg-white" : "bg-cyan-100/70"
   }`}
 >
