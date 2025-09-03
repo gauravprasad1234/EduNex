@@ -19,11 +19,16 @@ const Navbar = () => {
 
   let { user, setUser, isLoggedin } = useContext(AppContext);
 
+  console.log(isLoggedin)
+
   async function getLoggedinUser() {
     try {
-      let user = await axios.get("https://edunex-5ms8.onrender.com/api/users/profile", {
-        withCredentials: true,
-      });
+      let user = await axios.get(
+        "https://edunex-5ms8.onrender.com/api/users/profile",
+        {
+          withCredentials: true,
+        }
+      );
 
       setUser(user.data);
     } catch (error) {
@@ -36,12 +41,11 @@ const Navbar = () => {
   }, []);
 
   return (
-   <div
-  className={`w-full flex items-center h-[80px] justify-between px-4 sm:px-10 md:px-14 border-b border-gray-300 py-4 ${
-    isCourseListPage ? "bg-white" : "bg-cyan-100/70"
-  }`}
->
-
+    <div
+      className={`w-full flex items-center h-[80px] justify-between px-4 sm:px-10 md:px-14 border-b border-gray-300 py-4 ${
+        isCourseListPage ? "bg-white" : "bg-cyan-100/70"
+      }`}
+    >
       <div className="flex gap-2 items-center">
         <img className="w-9 h-9" src={logo} alt="" />
         <h1 className="text-2xl font-bold">EduNex</h1>
