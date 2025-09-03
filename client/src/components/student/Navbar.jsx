@@ -19,7 +19,7 @@ const Navbar = () => {
 
   let { user, setUser, isLoggedin } = useContext(AppContext);
 
-  console.log(isLo);
+  // console.log(isLo);
 
   async function getLoggedinUser() {
     try {
