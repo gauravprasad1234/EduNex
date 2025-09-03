@@ -64,6 +64,8 @@ export const verifyPayment = async function (req, res) {
 
     if (payment.status !== "captured") {
       course.studentsEnrolled.push(student?._id);
+      student.enrolledCourses.push(course._id)
+      await student.save()
       await course.save();
     }
 
