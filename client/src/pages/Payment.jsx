@@ -6,7 +6,23 @@ import { AppContext } from "../context/AppContext";
 
 const Payment = ({ course, amount }) => {
   let navigate = useNavigate();
-  let { user } = useContext(AppContext);
+  let { user,setUser } = useContext(AppContext);
+
+  async function getLoggedinUser() {
+    try {
+      let user = await axios.get(
+        "https://edunex-5ms8.onrender.com/api/users/profile",
+        {
+          withCredentials: true,
+        }
+      );
+
+      setUser(user.data);
+    } catch (error) {
+      console.log(error?.response?.data?.message);
+    }
+  }
+
   async function handlePayment() {
     try {
       let orderRes = await axios.post(
@@ -35,6 +51,7 @@ const Payment = ({ course, amount }) => {
             navigate("/")
             if (verifyRes.data.success) {
               toast.success("Payment Successfull");
+              await getLoggedinUser()
               navigate("/");
             } else {
               toast.error(
