@@ -81,6 +81,8 @@ export const enrollInCourse = async function (req, res) {
     }
 
     course.studentsEnrolled.push(student._id);
+    student.enrolledCourses.push(course._id);
+    await student.save();
     await course.save();
 
     return res
