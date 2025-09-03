@@ -19,7 +19,7 @@ const Navbar = () => {
 
   let { user, setUser, isLoggedin } = useContext(AppContext);
 
-  console.log(isLoggedin)
+  console.log(isLo);
 
   async function getLoggedinUser() {
     try {
@@ -65,21 +65,20 @@ const Navbar = () => {
             </>
           )}
         </div>
-        {isLoggedin && (
-          <Link
-            to={"/profile"}
-            className="w-[30px] text-black h-[30px] rounded-full bg-orange-500 flex items-center justify-center"
-          >
-            {user?.name?.split("")[0].toUpperCase()}
-          </Link>
-        )}
 
-        {!isLoggedin && (
+        {!isLoggedin ? (
           <Link
             to={"/register"}
             className="bg-blue-600 text-white px-5 py-2 rounded-full"
           >
             Create Account
+          </Link>
+        ) : (
+          <Link
+            to={"/profile"}
+            className="w-[30px] text-black h-[30px] rounded-full bg-orange-500 flex items-center justify-center"
+          >
+            {user?.name?.split("")[0].toUpperCase()}
           </Link>
         )}
       </div>
