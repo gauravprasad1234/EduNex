@@ -62,17 +62,29 @@ export const verifyPayment = async function (req, res) {
     // STEP 2: Fetch payment from Razorpay and check actual status
     const payment = await razorpay.payments.fetch(razorpay_payment_id);
 
-    if (payment.status !== "captured") {
-      course.studentsEnrolled.push(student?._id);
-      student.enrolledCourses.push(course._id)
-      await student.save()
-      await course.save();
-    }
+    if (payment.status === "captured") {
+      // Payment successful, enroll student
+      if (!course.studentsEnrolled.includes(student._id)) {
+        course.studentsEnrolled.push(student._id);
+      }
 
-    return res.status(200).json({
-      success: true,
-      message: "Payment verified and captured successfully",
-    });
+      if (!student.enrolledCourses.includes(course._id)) {
+        student.enrolledCourses.push(course._id);
+      }
+
+      await student.save();
+      await course.save();
+
+      return res.status(200).json({
+        success: true,
+        message: "Payment verified and captured successfully",
+      });
+    } else {
+      return res.status(400).json({
+        success: false,
+        message: "Payment not captured",
+      });
+    }
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Error processing payment" });
