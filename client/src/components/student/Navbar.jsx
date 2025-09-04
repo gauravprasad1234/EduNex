@@ -54,7 +54,7 @@ const Navbar = () => {
       </div>
       <div className="hidden md:flex items-center gap-5 text-gray-500">
         <div className="flex items-center gap-5">
-          {isLoggedin ? (
+          {isLoggedin && user ? (
             <>
               <button
                 onClick={() => {
