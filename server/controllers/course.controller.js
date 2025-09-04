@@ -99,3 +99,18 @@ export const enrollInCourse = async function (req, res) {
     );
   }
 };
+
+export const getEnrollments = async function (req, res) {
+  try {
+    let user = await User.findOne({ email: req.user.email });
+    let enrollments = await Course.find({ studentsEnrolled: user._id });
+    return res.status(200).json(enrollments);
+  } catch (error) {
+    return res.status(500).json({
+      message:
+        error instanceof Error
+          ? error.message
+          : "Error in fetching enrollments",
+    });
+  }
+};

@@ -1,14 +1,33 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../context/AppContext";
 import Footer from "../../components/student/Footer";
 import { Line } from "rc-progress";
+import axios from "axios";
 
 const MyEnrollments = () => {
   const { enrolledCourses, calculateCoursesDuration, navigate } =
     useContext(AppContext);
+  const [enrollments, setEnrollments] = useState([]);
 
   let { user } = useContext(AppContext);
   console.log(user);
+
+  async function fetchEnrollments() {
+    try {
+      let enrollmentRes = await axios.get(
+        "https://edunex-5ms8.onrender.com/api/courses/my-enrollments",
+        { withCredentials: true }
+      );
+      console.log(enrollmentRes);
+      if (enrollmentRes.status === 200) setEnrollments(enrollmentRes.data);
+    } catch (error) {
+      console.log(error?.response?.data?.message);
+    }
+  }
+
+  useEffect(() => {
+    fetchEnrollments();
+  }, []);
 
   const [progressArray] = useState([
     { lectureCompleted: 4, totalLectures: 4 },
