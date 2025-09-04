@@ -40,6 +40,8 @@ const Navbar = () => {
     getLoggedinUser();
   }, []);
 
+  console.log(user)
+
   return (
     <div
       className={`w-full flex items-center h-[80px] justify-between px-4 sm:px-10 md:px-14 border-b border-gray-300 py-4 ${
@@ -52,7 +54,7 @@ const Navbar = () => {
       </div>
       <div className="hidden md:flex items-center gap-5 text-gray-500">
         <div className="flex items-center gap-5">
-          {isLoggedin && (
+          {isLoggedin ? (
             <>
               <button
                 onClick={() => {
@@ -62,25 +64,22 @@ const Navbar = () => {
                 {user?.role === "educator" && "Educator Dashboard"}
               </button>
               <Link to="/my-enrollments"> My Enrollments</Link>
+              <Link
+                to={"/profile"}
+                className="w-[30px] text-black h-[30px] rounded-full bg-orange-500 flex items-center justify-center"
+              >
+                {user?.name?.split("")[0].toUpperCase()}
+              </Link>
             </>
+          ) : (
+            <Link
+              to={"/register"}
+              className="bg-blue-600 text-white px-5 py-2 rounded-full"
+            >
+              Create Account
+            </Link>
           )}
         </div>
-
-        {isLoggedin ? (
-          <Link
-            to={"/profile"}
-            className="w-[30px] text-black h-[30px] rounded-full bg-orange-500 flex items-center justify-center"
-          >
-            {user?.name?.split("")[0].toUpperCase()}
-          </Link>
-        ) : (
-          <Link
-            to={"/register"}
-            className="bg-blue-600 text-white px-5 py-2 rounded-full"
-          >
-            Create Account
-          </Link>
-        )}
       </div>
 
       {/* For Phone Screens */}
