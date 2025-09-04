@@ -66,7 +66,7 @@ const MyEnrollments = () => {
               </thead>
 
               <tbody className="text-gray-700">
-                {user?.enrolledCourses.map((course, index) => {
+                {enrollments.map((course, index) => {
                   const progress = progressArray[index];
                   const percent = progress
                     ? (progress.lectureCompleted * 100) / progress.totalLectures
@@ -74,14 +74,17 @@ const MyEnrollments = () => {
 
                   return (
                     <tr
-                      key={index}
+                      key={course._id}
                       className="border-b border-gray-200 hover:bg-gray-50 transition"
                     >
                       {/* Course */}
                       <td className="px-4 py-3 flex items-center space-x-3">
                         <img
-                          src={course?.thumbnail}
-                          alt=""
+                          src={
+                            course?.thumbnail ||
+                            "https://via.placeholder.com/150"
+                          }
+                          alt={course?.title}
                           className="w-14 sm:w-20 md:w-28 rounded-md"
                         />
                         <div className="flex-1">
@@ -97,11 +100,6 @@ const MyEnrollments = () => {
                         </div>
                       </td>
 
-                      {/* Duration */}
-                      {/* <td className="px-4 py-3 whitespace-nowrap">
-                        {calculateCoursesDuration(course)}
-                      </td> */}
-
                       {/* Completed */}
                       <td className="px-4 py-3 whitespace-nowrap">
                         {progress &&
@@ -109,7 +107,7 @@ const MyEnrollments = () => {
                         Lectures
                       </td>
 
-                      {/* Status Button */}
+                      {/* Status */}
                       <td className="px-4 py-3">
                         <button
                           className={`px-4 py-1.5 rounded text-white text-sm font-medium ${
