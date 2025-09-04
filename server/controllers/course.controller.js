@@ -104,6 +104,7 @@ export const getEnrollments = async function (req, res) {
   try {
     let user = await User.findOne({ email: req.user.email });
     let enrollments = await Course.find({ studentsEnrolled: user._id });
+    console.log(enrollments)
     return res.status(200).json(enrollments);
   } catch (error) {
     return res.status(500).json({
