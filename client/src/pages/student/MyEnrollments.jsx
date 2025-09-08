@@ -60,7 +60,7 @@ const MyEnrollments = () => {
                 <tr>
                   <th className="px-4 py-3 font-semibold">Course</th>
                   {/* <th className="px-4 py-3 font-semibold">Duration</th> */}
-                  <th className="px-4 py-3 font-semibold">Completed</th>
+                  <th className="px-4 py-3 font-semibold">Price</th>
                   <th className="px-4 py-3 font-semibold">Status</th>
                 </tr>
               </thead>
@@ -102,9 +102,7 @@ const MyEnrollments = () => {
 
                       {/* Completed */}
                       <td className="px-4 py-3 whitespace-nowrap">
-                        {progress &&
-                          `${progress.lectureCompleted} / ${progress.totalLectures}`}{" "}
-                        Lectures
+                        ₹ {course?.price}
                       </td>
 
                       {/* Status */}
